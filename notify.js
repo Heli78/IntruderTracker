@@ -3,9 +3,9 @@ const router = Router();
 const messenger = require('./messenger');
 
 const notify = async (req,res) => {
-  const { longitude, latitude } = req.body;
-  const lat = latitude.toString();
-  const long = longitude.toString();
+  const userData = await User.findOne({mobileno:req.body.mobileno});
+  const lat = userData.coordinates[0].toString();
+  const long = userData.coordinates[1].toString();
     await User.find({
       location: {
         $near: {
@@ -22,7 +22,6 @@ const notify = async (req,res) => {
 
         return res.status(200).json({
           success: false,
-          results: [],
         });
       }
 
@@ -32,6 +31,9 @@ const notify = async (req,res) => {
         console.log(receiver);
         messenger(receiver[i].mobileno , `Help Required at https://www.google.com/maps/@${lat},${long}`);
       }
+      return res.status(200).json({
+        success: true,
+      });
 }
 }
 
