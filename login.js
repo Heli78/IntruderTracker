@@ -3,16 +3,8 @@ const bodyparser = require('body-parser');
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt'); //for password encryption
-mongoose.connect('mongodb://localhost:27017/pro2DB',{useNewUrlParser:true});
-
-
-const userSchema=new mongoose.Schema({
-    mobileno:String,
-    password:String,
-
-})
-
-const User=mongoose.model("User",userSchema);
+const config = require('./config');
+mongoose.connect(config.uri,{useNewUrlParser:true});
 
 const loginRouter = express.Router();
 loginRouter.use(bodyparser.json());
