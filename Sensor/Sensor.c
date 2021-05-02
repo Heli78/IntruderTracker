@@ -5,7 +5,7 @@ const char* ssid = "Shuvo";
 const char* password = "Suvo2662";
 
 //Your Domain name with URL path or IP address with path
-const char* serverName = "http://192.168.1.106:1880/update-sensor";
+const char* serverName = "http://localhost:8000/updateLocation";
 
 // the following variables are unsigned longs because the time, measured in
 // milliseconds, will quickly become a bigger number than can be stored in an int.
@@ -42,9 +42,9 @@ void loop() {
       http.begin(serverName);
 
       // Specify content-type header
-      http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+      http.addHeader("Content-Type", "application/json");
       // Data to send with HTTP POST
-      String httpRequestData = "api_key=tPmAT5Ab3j7F9&sensor=BME280&value1=24.25&value2=49.54&value3=1005.14";           
+      String httpRequestData = "{\"mobileno\":\"+911234567890\"}";           
       // Send HTTP POST request
       int httpResponseCode = http.POST(httpRequestData);
       
